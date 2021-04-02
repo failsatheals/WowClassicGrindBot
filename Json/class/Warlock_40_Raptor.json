@@ -1,0 +1,198 @@
+{
+  "ClassName": "Warlock",
+  "Loot": true,
+  "NPCMaxLevels_Above": 2,
+
+  "PathFilename": "_p1/38-41 Dust Raptors.json",
+  "PathThereAndBack": true,
+  "PathReduceSteps": true,
+
+  "Mode": "AttendedGrind",
+
+  "Pull": {
+    "Sequence": [
+      {
+        "Name": "pull",
+        "Key": "2",
+        "HasCastBar": true,
+        "StopBeforeCast": true,
+        "ResetOnNewTarget": true,
+        "MinMana": 220,
+        "Log": false
+      }
+    ]
+  },
+  "Combat": {
+    "Sequence": [
+      {
+        "Name": "Healthstone",
+        "Key": "F6",
+        "Requirement": "Health%<45",
+        "Cooldown": 60,
+        "Log": false
+      },
+      {
+        "Name": "Drain Soul",
+        "Key": "6",
+        "HasCastBar": true,
+        "StopBeforeCast": true,
+        "Requirements": [ "TargetHealth%<30", "not BagItem:6265:5" ],
+        "MinMana": 55
+      },
+      {
+        "Name": "Drain Life",
+        "Key": "8",
+        "HasCastBar": true,
+        "StopBeforeCast": true,
+        "Requirements": [ "Health%<60", "TargetHealth%>20" ],
+        "MinMana": 185
+      },
+      {
+        "Name": "Amplify Curse",
+        "Key": "0",
+        "Cooldown": 180,
+        "MinMana": 0,
+        "Log": false
+      },
+      {
+        "Name": "Curse of Agony",
+        "Key": "4",
+        "ResetOnNewTarget": true,
+        "Requirements": [ "TargetHealth%>80", "not Curse of" ],
+        "MinMana": 130,
+        "Log": false
+      },
+      {
+        "Name": "Siphon Life",
+        "Key": "5",
+        "Requirements": [ "TargetHealth%>45", "not Siphon Life" ],
+        "ResetOnNewTarget": true,
+        "MinMana": 150,
+        "Log": false
+      },
+      {
+        "Name": "Corruption",
+        "Key": "3",
+        "Requirements": [ "TargetHealth%>45", "not Corruption" ],
+        "ResetOnNewTarget": true,
+        "MinMana": 160,
+        "Log": false
+      },
+      {
+        "Name": "Shadow Bolt",
+        "Key": "1",
+        "MinMana": 210,
+        "Requirements": [ "Shadow Trance" ],
+        "Log": false
+      },
+      {
+        "Name": "shoot",
+        "Key": "7",
+        "Cooldown": 10,
+        "Requirements": [ "HasRangedWeapon", "not Shooting" ],
+        "Log": false
+      },
+      {
+        "Name": "Interact",
+        "Key": "H",
+        "Cooldown": 3,
+        "Log": false
+      }
+    ]
+  },
+  "Parallel": {
+    "Sequence": [
+      {
+        "Name": "Food",
+        "StopBeforeCast": true,
+        "Key": "N1",
+        "Requirement": "Health%<10",
+        "Cooldown": 20,
+        "Log": false
+      },
+      {
+        "Name": "Water",
+        "StopBeforeCast": true,
+        "Key": "N2",
+        "Requirement": "Mana%<10",
+        "Cooldown": 20,
+        "Log": false
+      }
+    ]
+  },
+  "Adhoc": {
+    "Sequence": [
+      {
+        "Name": "Demon Armor",
+        "Key": "=",
+        "MinMana": 800,
+        "Requirement": "not Demon Armor",
+        "Log": false
+      },
+      {
+        "Name": "Summon Succubus",
+        "HasCastBar": true,
+        "StopBeforeCast": true,
+        "Key": "F9",
+        "MinMana": 923,
+        "Requirements": [ "BagItem:6265:1", "not Has Pet" ],
+        "Log": false,
+        "Cooldown": 10
+      },
+      {
+        "Name": "Life Tap",
+        "Key": "9",
+        "Requirements": [ "Health%>60", "Mana%<60" ],
+        "Cooldown": 0,
+        "Log": false
+      },
+      {
+        "Name": "Dark Pact",
+        "Key": "F3",
+        "Requirements": [ "Mana%<45", "Has Pet" ],
+        "Cooldown": 0,
+        "Log": false
+      },
+      {
+        "Name": "Create Soulstone",
+        "Key": "F11",
+        "Requirements": [ "not BagItem:16893:1", "BagItem:6265:1" ],
+        "Cooldown": 0,
+        "Log": false
+      },
+      {
+        "Name": "Apply Soulstone",
+        "Key": "F12",
+        "Requirements": [ "BagItem:16893:1", "not Soulstone Resurrection" ],
+        "Cooldown": 1800,
+        "Log": false
+      },
+      {
+        "Name": "Create HealthStone",
+        "Key": "F5",
+        "Requirements": [ "not BagItem:5509:1", "BagItem:6265:1" ],
+        "Cooldown": 0,
+        "Log": false
+      }
+
+    ]
+  },
+  "NPC": {
+    "Sequence": [
+      {
+        "Name": "Repair",
+        "Key": "C",
+        "Requirement": "Items Broken",
+        "PathFilename": "23_Duskwood_Vendor.json",
+        "Cost": 6
+      },
+      {
+        "Name": "Sell",
+        "Key": "C",
+        "Requirement": "BagFull",
+        "PathFilename": "23_Duskwood_Vendor.json",
+        "Cost": 6
+      }
+    ]
+  }
+}

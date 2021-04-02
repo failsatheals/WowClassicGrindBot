@@ -29,24 +29,12 @@
         public bool WellFed { get => IsBitSet(2); }
         public bool ManaRegeneration { get => IsBitSet(3); }
 
-        // Priest
-        public bool Fortitude { get => IsBitSet(10); }
-
-        public bool InnerFire { get => IsBitSet(11); }
-        public bool Renew { get => IsBitSet(12); }
-        public bool Shield { get => IsBitSet(13); }
-        public bool DivineSpirit { get => IsBitSet(14); }
-
         // Druid
         public bool MarkOfTheWild { get => IsBitSet(10); }
         public bool Thorns { get => IsBitSet(11); }
         public bool TigersFury { get => IsBitSet(12); }
 
-        // Paladin
-        public bool Aura { get => IsBitSet(10); }
-
-        public bool Blessing { get => IsBitSet(11); }
-        public bool Seal { get => IsBitSet(12); }
+        // Hunter
 
         // Mage
         public bool FrostArmor { get => IsBitSet(10); }
@@ -56,16 +44,31 @@
         public bool Ward { get => IsBitSet(13); }
         public bool FirePower { get => IsBitSet(14); }
 
+        // Paladin
+        public bool Aura { get => IsBitSet(10); }
+
+        public bool Blessing { get => IsBitSet(11); }
+        public bool Seal { get => IsBitSet(12); }
+
+        // Priest
+        public bool Fortitude { get => IsBitSet(10); }
+        public bool InnerFire { get => IsBitSet(11); }
+        public bool Renew { get => IsBitSet(12); }
+        public bool Shield { get => IsBitSet(13); }
+        public bool DivineSpirit { get => IsBitSet(14); }
+
         // Rogue
         public bool SliceAndDice { get => IsBitSet(10); }
+
+        // Shaman
 
         // Warrior
         public bool BattleShout { get => IsBitSet(10); }
 
         // Warlock
-        public bool DemonSkin { get => IsBitSet(10); }
+        public bool DemonArmor { get => IsBitSet(10); }
         public bool SoulLink { get => IsBitSet(11); }
         public bool SoulstoneResurrection { get => IsBitSet(12); }
-        public bool DemonArmor { get => IsBitSet(13); }
+        public bool ShadowTrance { get => IsBitSet(13); }
     }
 }
