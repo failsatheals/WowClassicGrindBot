@@ -90,54 +90,85 @@ namespace Libs
             {
                 BuffDictionary = new Dictionary<string, Func<bool>>
                 {
-                    {  "Seal", ()=> playerReader.Buffs.Seal },
-                    {  "Aura", ()=>playerReader.Buffs.Aura },
-                    {  "Devotion Aura", ()=>playerReader.Buffs.Aura },
-                    {  "Blessing", ()=> playerReader.Buffs.Blessing },
-                    {  "Blessing of Might", ()=> playerReader.Buffs.Blessing },
+                    // All
                     {  "Well Fed", ()=> playerReader.Buffs.WellFed },
                     {  "Eating", ()=> playerReader.Buffs.Eating },
                     {  "Drinking", ()=> playerReader.Buffs.Drinking },
                     {  "Mana Regeneration", ()=> playerReader.Buffs.ManaRegeneration },
-                    {  "Fortitude", ()=> playerReader.Buffs.Fortitude },
-                    {  "InnerFire", ()=> playerReader.Buffs.InnerFire },
-                    {  "Divine Spirit", ()=> playerReader.Buffs.DivineSpirit },
-                    {  "Renew", ()=> playerReader.Buffs.Renew },
-                    {  "Shield", ()=> playerReader.Buffs.Shield },
+                    //-------------------------
+
+
+                    // Druid
                     {  "Mark of the Wild", ()=> playerReader.Buffs.MarkOfTheWild },
                     {  "Thorns", ()=> playerReader.Buffs.Thorns },
                     {  "TigersFury", ()=> playerReader.Buffs.TigersFury },
+                    //-------------------------
+                    {  "Demoralizing Roar", ()=> playerReader.Debuffs.Roar },
+                    {  "Faerie Fire", ()=> playerReader.Debuffs.FaerieFire },
+                    {  "Rip", ()=> playerReader.Debuffs.Rip },
+
+                    // Hunter
+
+                    //-------------------------
+
+                    // Mage
                     {  "Frost Armor", ()=> playerReader.Buffs.FrostArmor },
                     {  "Arcane Intellect", ()=> playerReader.Buffs.ArcaneIntellect },
                     {  "Ice Barrier", ()=>playerReader.Buffs.IceBarrier },
                     {  "Ward", ()=>playerReader.Buffs.Ward },
                     {  "Fire Power", ()=>playerReader.Buffs.FirePower },
+                    //-------------------------
+                    {  "Frostbite", ()=> playerReader.Debuffs.Rip },
+
+                    //  Paladin
+                    {  "Seal", ()=> playerReader.Buffs.Seal },
+                    {  "Aura", ()=>playerReader.Buffs.Aura },
+                    {  "Devotion Aura", ()=>playerReader.Buffs.Aura },
+                    {  "Blessing", ()=> playerReader.Buffs.Blessing },
+                    {  "Blessing of Might", ()=> playerReader.Buffs.Blessing },
+                    //-------------------------
+
+                    // Priest
+                    {  "Fortitude", ()=> playerReader.Buffs.Fortitude },
+                    {  "InnerFire", ()=> playerReader.Buffs.InnerFire },
+                    {  "Divine Spirit", ()=> playerReader.Buffs.DivineSpirit },
+                    {  "Renew", ()=> playerReader.Buffs.Renew },
+                    {  "Shield", ()=> playerReader.Buffs.Shield },
+                    //-------------------------
+                    {  "Shadow Word: Pain", ()=> playerReader.Debuffs.ShadowWordPain },
+
+                    // Rogue
                     {  "Slice And Dice", ()=> playerReader.Buffs.SliceAndDice },
-                    {  "Battle Shout", ()=> playerReader.Buffs.BattleShout },
+                    //-------------------------
+
+                    // Shaman
+                    
+                    //-------------------------
+
+                    // Warlock
                     {  "Demon Armor", ()=> playerReader.Buffs.DemonArmor },
                     {  "Soul Link", ()=> playerReader.Buffs.SoulLink },
                     {  "Soulstone Resurrection", ()=> playerReader.Buffs.SoulstoneResurrection },
                     {  "Shadow Trance", ()=> playerReader.Buffs.ShadowTrance },
-                    {  "Has Pet", ()=> playerReader.PlayerBitValues.HasPet },
-
-                    {  "Demoralizing Roar", ()=> playerReader.Debuffs.Roar },
-                    {  "Faerie Fire", ()=> playerReader.Debuffs.FaerieFire },
-                    {  "Rip", ()=> playerReader.Debuffs.Rip },
-                    {  "Rend", ()=> playerReader.Debuffs.Rend },
-
-                    {  "Shadow Word: Pain", ()=> playerReader.Debuffs.ShadowWordPain },
-
+                    //-------------------------
                     {  "Curse of", ()=> playerReader.Debuffs.CurseOf },
                     {  "Corruption", ()=> playerReader.Debuffs.Corruption },
                     {  "Immolate", ()=> playerReader.Debuffs.Immolate },
                     {  "Siphon Life", ()=> playerReader.Debuffs.SiphonLife },
+                    
+                    // Warrior
+                    {  "Battle Shout", ()=> playerReader.Buffs.BattleShout },
+                    //-------------------------
+                    {  "Rend", ()=> playerReader.Debuffs.Rend },
 
 
+
+
+                    //CONDITIONALS
+                    { "Has Pet", ()=> playerReader.PlayerBitValues.HasPet },
                     { "OutOfCombatRange", ()=> !playerReader.WithInCombatRange },
                     { "InCombatRange", ()=> playerReader.WithInCombatRange },
-
                     { "InFireblastRange", ()=> playerReader.SpellInRange.Mage_Fireblast },
-
                     { "AutoAttacking", ()=> playerReader.IsAutoAttacking },
                     { "Shooting", ()=> playerReader.IsShooting },
                     { "Items Broken", ()=> playerReader.PlayerBitValues.ItemsAreBroken },

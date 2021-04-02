@@ -401,41 +401,52 @@ e.g.
 
 | Class | Buff |
 | --- | --- |
-| All | "Items Broken" |
-| All | "HasRangedWeapon" |
 | All | "Well Fed" |
 | All | "Eating" |
 | All | "Drinking" |
 | All | "Mana Regeneration" |
+| All | CONDITIONALS |
+| All | "Items Broken" |
+| All | "HasRangedWeapon" |
 | All | "OutOfCombatRange" |
 | All | "InCombatRange" |
 | All | "AutoAttacking" |
 | All | "Shooting" |
+| All | "Has Pet" |
+| Druid | "Mark of the Wild" |
+| Druid | "Thorns" |
+| Druid | "TigersFury" |
+| Mage | "Frost Armor" |
+| Mage | "Arcane Intellect" |
+| Mage | "Ice Barrier" |
+| Mage | "Ward" |
+| Mage | "Fire Power" |
+| Paladin | "Seal" |
+| Paladin |  "Aura" |
+| Paladin |  "Blessing" |
 | Priest | "Fortitude" |
 | Priest | "InnerFire" |
 | Priest | "Divine Spirit" |
 | Priest | "Renew" |
 | Priest | "Shield" |
-| Priest | "Shadow Word: Pain" |
-| Paladin | "Seal" |
-| Paladin |  "Aura" |
-| Paladin |  "Blessing" |
-| Druid | "Mark of the Wild" |
-| Druid | "Thorns" |
-| Druid Debuff | "Demoralizing Roar"
-| Druid Debuff | "Faerie Fire"
-| Mage | "Frost Armor" |
-| Mage | "Arcane Intellect" |
-| Mage | "Ice Barrier" |
 | Rogue | "Slice And Dice" |
+| Warlock | "Demon Armor"  |
+| Warlock | "Shadow Trance" |
+| Warlock | "Soulstone Resurraction" |
+| Warlock | "Soul Link" |
 | Warrior | "Battle Shout" |
-| Warlock | "Demon Skin" |
-| Warlock | "Has Pet" |
-| Warlock | "Curse of Weakness" |
-| Warlock | "Curse of Agony" |
+
+| Class | Debuff |
+| --- | --- |
+| Druid | "Demoralizing Roar" |
+| Druid | "Faerie Fire" |
+| Mage | "Frostbite" |
+| Priest | "Shadow Word: Pain" |
+| Warlock | "Curse of" |
+| Warlock | "Siphon Life" |
 | Warlock | "Corruption" |
 | Warlock | "Immolate" |
-| Warrior Debuff | "Rend" |
+| Warrior | "Rend" |
  
 #### Range
 
