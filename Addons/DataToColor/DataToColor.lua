@@ -636,7 +636,7 @@ function DataToColor:getBuffsForClass()
         class=class+self:MakeIndexBase2(self:GetBuffs("Demon"), 10) +
         self:MakeIndexBase2(self:GetBuffs("Soul Link"), 11) +
         self:MakeIndexBase2(self:GetBuffs("Soulstone Resurrection"), 12) +
-        self:MakeIndexBase2(self:GetBuffs("Nightfall"), 13);
+        self:MakeIndexBase2(self:GetBuffs("Shadow Trance"), 13);
     end
     return class;
 end
@@ -725,10 +725,10 @@ function DataToColor:getDebuffsForTarget()
     elseif CC == "WARRIOR" then        
         class=class+self:MakeIndexBase2(self:GetDebuffs("Rend"), 0);
     elseif CC == "WARLOCK" then        
-        class=self:MakeIndexBase2(self:GetDebuffs("Curse of Weakness"), 0) +
-        self:MakeIndexBase2(self:GetDebuffs("Curse of Agony"), 1) +
-        self:MakeIndexBase2(self:GetDebuffs("Corruption"), 2) +
-        self:MakeIndexBase2(self:GetDebuffs("Immolate"), 3);
+        class=self:MakeIndexBase2(self:GetDebuffs("Curse of"), 0) +
+        self:MakeIndexBase2(self:GetDebuffs("Corruption"), 1) +
+        self:MakeIndexBase2(self:GetDebuffs("Immolate"), 2) +
+        self:MakeIndexBase2(self:GetDebuffs("Siphon Life"), 3);
     end
 
     return class;

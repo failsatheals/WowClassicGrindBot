@@ -117,7 +117,7 @@ namespace Libs
                     {  "Demon Armor", ()=> playerReader.Buffs.DemonArmor },
                     {  "Soul Link", ()=> playerReader.Buffs.SoulLink },
                     {  "Soulstone Resurrection", ()=> playerReader.Buffs.SoulstoneResurrection },
-                    {  "Nightfall", ()=> playerReader.Buffs.Nightfall },
+                    {  "Shadow Trance", ()=> playerReader.Buffs.ShadowTrance },
                     {  "Has Pet", ()=> playerReader.PlayerBitValues.HasPet },
 
                     {  "Demoralizing Roar", ()=> playerReader.Debuffs.Roar },
@@ -127,10 +127,10 @@ namespace Libs
 
                     {  "Shadow Word: Pain", ()=> playerReader.Debuffs.ShadowWordPain },
 
-                    {  "Curse of Weakness", ()=> playerReader.Debuffs.CurseofWeakness },
-                    {  "Curse of Agony", ()=> playerReader.Debuffs.CurseofAgony },
+                    {  "Curse of", ()=> playerReader.Debuffs.CurseOf },
                     {  "Corruption", ()=> playerReader.Debuffs.Corruption },
                     {  "Immolate", ()=> playerReader.Debuffs.Immolate },
+                    {  "Siphon Life", ()=> playerReader.Debuffs.SiphonLife },
 
 
                     { "OutOfCombatRange", ()=> !playerReader.WithInCombatRange },
