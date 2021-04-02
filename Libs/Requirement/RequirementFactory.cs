@@ -114,10 +114,10 @@ namespace Libs
                     {  "Fire Power", ()=>playerReader.Buffs.FirePower },
                     {  "Slice And Dice", ()=> playerReader.Buffs.SliceAndDice },
                     {  "Battle Shout", ()=> playerReader.Buffs.BattleShout },
-                    {  "Demon Skin", ()=> playerReader.Buffs.DemonSkin },
                     {  "Demon Armor", ()=> playerReader.Buffs.DemonArmor },
                     {  "Soul Link", ()=> playerReader.Buffs.SoulLink },
                     {  "Soulstone Resurrection", ()=> playerReader.Buffs.SoulstoneResurrection },
+                    {  "Nightfall", ()=> playerReader.Buffs.Nightfall },
                     {  "Has Pet", ()=> playerReader.PlayerBitValues.HasPet },
 
                     {  "Demoralizing Roar", ()=> playerReader.Debuffs.Roar },
