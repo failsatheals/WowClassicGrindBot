@@ -47,7 +47,7 @@ namespace Libs
 
             this.BagReader = new BagReader(squareReader, 20, itemDb);
             this.equipmentReader = new EquipmentReader(squareReader, 30);
-            this.PlayerReader = new PlayerReader(squareReader, creatureDb);
+            this.PlayerReader = new PlayerReader(squareReader, creatureDb, logger);
             this.LevelTracker = new LevelTracker(PlayerReader);
 
             this.areaDb = areaDb;
@@ -94,7 +94,7 @@ namespace Libs
 
                 if (PlayerReader != null)
                 {
-                    PlayerReader.Updated();
+                    PlayerReader.UpdateLuaError();
                 }
             }
             catch (Exception ex)

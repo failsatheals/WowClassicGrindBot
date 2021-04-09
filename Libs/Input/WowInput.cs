@@ -97,15 +97,36 @@ namespace Libs
             this.classConfig.PetAttack.SetClicked();
         }
 
+        public async Task TapSkinningKey(string source = "")
+        {
+            Log($"TapSkinningKey ({source})");
+            await wowProcess.KeyPress(classConfig.Skinning.ConsoleKey, defaultKeyPress);
+            this.classConfig.Skinning.SetClicked();
+        }
+
+        public async Task TapMountKey(string source = "")
+        {
+            Log($"TapMountKey ({source})");
+            await wowProcess.KeyPress(classConfig.Mount.ConsoleKey, defaultKeyPress);
+            this.classConfig.Mount.SetClicked();
+        }
+        public async Task TapHearthstoneKey(string source = "")
+        {
+            Log($"TapHearthstonKey ({source})");
+            await wowProcess.KeyPress(classConfig.Hearthstone.ConsoleKey, defaultKeyPress);
+            this.classConfig.Hearthstone.SetClicked();
+        }
+
+
         public async Task Hearthstone()
         {
             // hearth macro = /use hearthstone
-            await wowProcess.KeyPress(ConsoleKey.I, defaultKeyPress);
+            await wowProcess.KeyPress(classConfig.Hearthstone.ConsoleKey, defaultKeyPress);
         }
 
         public async Task Mount(PlayerReader playerReader)
         {
-            await wowProcess.KeyPress(ConsoleKey.O, defaultKeyPress);
+            await wowProcess.KeyPress(classConfig.Hearthstone.ConsoleKey, defaultKeyPress);
 
             for (int i = 0; i < 40; i++)
             {
@@ -117,8 +138,8 @@ namespace Libs
 
         public async Task Dismount()
         {
-            await wowProcess.KeyPress(ConsoleKey.O, defaultKeyPress);
-            await Task.Delay(1500);
+            await wowProcess.KeyPress(classConfig.Mount.ConsoleKey, defaultKeyPress);
+            await Task.Delay(750);
         }
 
 

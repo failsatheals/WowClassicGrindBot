@@ -18,7 +18,7 @@ namespace Libs.Goals
         private readonly StopMoving stopMoving;
         private readonly StuckDetector stuckDetector;
         private readonly ClassConfiguration classConfiguration;
-        
+
         private readonly CastingHandler castingHandler;
         private DateTime PullStartTime = DateTime.Now;
         private DateTime LastActive = DateTime.Now;
@@ -31,7 +31,7 @@ namespace Libs.Goals
             this.playerReader = playerReader;
             this.npcNameFinder = npcNameFinder;
             this.stopMoving = stopMoving;
-            
+
             this.castingHandler = castingHandler;
             this.stuckDetector = stuckDetector;
             this.classConfiguration = classConfiguration;
@@ -109,7 +109,7 @@ namespace Libs.Goals
                     await wowInput.TapClearTarget();
                     return;
                 }
-                
+
 
                 if (!this.stuckDetector.IsMoving())
                 {
@@ -168,7 +168,7 @@ namespace Libs.Goals
             await wowInput.TapStopAttack();
             this.playerReader.LastUIErrorMessage = UI_ERROR.NONE;
 
-            if(playerReader.PlayerBitValues.HasPet)
+            if (playerReader.PlayerBitValues.HasPet)
             {
                 await wowInput.TapPetAttack();
             }

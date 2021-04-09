@@ -16,21 +16,21 @@ namespace Libs.Goals
         private readonly PlayerReader playerReader;
         private readonly StopMoving stopMoving;
         private readonly CastingHandler castingHandler;
-        
+
         private DateTime lastActive = DateTime.Now;
         private readonly ClassConfiguration classConfiguration;
         private DateTime lastPulled = DateTime.Now;
 
         private int lastKilledGuid;
 
-        public CombatGoal(ILogger logger, WowInput wowInput, PlayerReader playerReader, StopMoving stopMoving,  ClassConfiguration classConfiguration, CastingHandler castingHandler)
+        public CombatGoal(ILogger logger, WowInput wowInput, PlayerReader playerReader, StopMoving stopMoving, ClassConfiguration classConfiguration, CastingHandler castingHandler)
         {
             this.logger = logger;
             this.wowInput = wowInput;
 
             this.playerReader = playerReader;
             this.stopMoving = stopMoving;
-            
+
             this.classConfiguration = classConfiguration;
             this.castingHandler = castingHandler;
 
@@ -59,7 +59,7 @@ namespace Libs.Goals
             bool pressed = false;
             foreach (var item in this.Keys)
             {
-                bool isFightold=(DateTime.Now - lastActive).TotalSeconds > 5 && (DateTime.Now - lastPulled).TotalSeconds > 5;
+                bool isFightold = (DateTime.Now - lastActive).TotalSeconds > 5 && (DateTime.Now - lastPulled).TotalSeconds > 5;
                 if (item.Name == "Interact" && !isFightold) // don't interact at the start of the fight
                 {
                     item.SetClicked();
@@ -178,8 +178,8 @@ namespace Libs.Goals
                     lastKilledGuid = playerReader.LastKilledGuid;
 
                     playerReader.IncrementKillCount();
-                    logger.LogInformation($"----- Killed a mob! Current: {playerReader.LastCombatKillCount} - " + 
-                        $"CombatCreature: {playerReader.CombatCreatures.Any(x => x.CreatureId == playerReader.LastKilledGuid)} - " + 
+                    logger.LogInformation($"----- Killed a mob! Current: {playerReader.LastCombatKillCount} - " +
+                        $"CombatCreature: {playerReader.CombatCreatures.Any(x => x.CreatureId == playerReader.LastKilledGuid)} - " +
                         $"TargetHistory: {playerReader.TargetHistory.Any(x => x.CreatureId == playerReader.LastKilledGuid)}");
 
                     SendActionEvent(new ActionEventArgs(GoapKey.producedcorpse, true));
@@ -200,12 +200,12 @@ namespace Libs.Goals
 
                 await wowInput.TapTargetPet();
                 await wowInput.TapTargetOfTarget();
-                
+
                 return playerReader.HasTarget;
             }
 
             // check for targets attacking me
-            await wowInput.TapNearestTarget();
+            //await wowInput.TapNearestTarget();
             if (this.playerReader.HasTarget && playerReader.PlayerBitValues.TargetInCombat)
             {
                 if (this.playerReader.PlayerBitValues.TargetOfTargetIsPlayer)

@@ -18,7 +18,7 @@ namespace Libs.Goals
         public override Task PerformAction()
         {
             SendActionEvent(new ActionEventArgs(GoapKey.isalive, true));
-            logger.LogInformation("Waiting");
+            //logger.LogInformation("Waiting");
             return Task.Delay(1000);
         }
     }

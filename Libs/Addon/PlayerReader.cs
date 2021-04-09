@@ -7,11 +7,15 @@ namespace Libs
 {
     public partial class PlayerReader
     {
+        private ILogger logger;
+        private bool debug = true;
+
         private readonly ISquareReader reader;
         private readonly CreatureDB creatureDb;
 
-        public PlayerReader(ISquareReader reader, CreatureDB creatureDb)
+        public PlayerReader(ISquareReader reader, CreatureDB creatureDb, ILogger logger)
         {
+            this.logger = logger;
             this.reader = reader;
             this.creatureDb = creatureDb;
         }
@@ -172,7 +176,7 @@ namespace Libs
         public void DecrementKillCount()
         {
             lastCombatKillCount--;
-            if(lastCombatKillCount < 0)
+            if (lastCombatKillCount < 0)
             {
                 ResetKillCount();
             }
@@ -204,13 +208,17 @@ namespace Libs
         #endregion
 
 
-        internal void Updated()
+        internal void UpdateLuaError()
         {
             Sequence++;
 
-            if (UIErrorMessage > 0)
+            Log($"Called Updater: {Sequence} with last error {LastUIErrorMessage}");
+            UI_ERROR newLuaError = (UI_ERROR)reader.GetLongAtCell(52);
+            if (newLuaError != UI_ERROR.NONE && newLuaError != LastUIErrorMessage)
             {
-                LastUIErrorMessage = (UI_ERROR)UIErrorMessage;
+                Log($"Updater === > NEW UI Error:  { newLuaError}");
+                Log($"Last UI Error:  { LastUIErrorMessage}");
+                LastUIErrorMessage = newLuaError;
             }
         }
 
@@ -228,6 +236,17 @@ namespace Libs
             while (this.Sequence <= s + n)
             {
                 await Task.Delay(100);
+            }
+        }
+
+
+
+
+        private void Log(string text)
+        {
+            if (debug)
+            {
+                logger.LogInformation($"{this.GetType().Name}: {text}");
             }
         }
 

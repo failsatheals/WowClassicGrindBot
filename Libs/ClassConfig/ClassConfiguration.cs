@@ -25,7 +25,7 @@ namespace Libs
     {
         public string ClassName { get; set; } = string.Empty;
         public bool Loot { get; set; } = true;
-        public bool Skin { get; set; } = false;
+        public bool Skin { get; set; } = true;
         public bool UseMount { get; set; } = true;
 
         public string PathFilename { get; set; } = string.Empty;
@@ -60,7 +60,7 @@ namespace Libs
         public string JumpKey { get; set; } = "Spacebar";
 
         public KeyAction Interact { get; set; } = new KeyAction();
-        public string InteractKey { get; set; } = "I";
+        public string InteractKey { get; set; } = "H";
 
         public KeyAction TargetLastTarget { get; set; } = new KeyAction();
         public string TargetLastTargetKey { get; set; } = "G";
@@ -84,9 +84,19 @@ namespace Libs
 
         public KeyAction PetAttack { get; set; } = new KeyAction();
         public string PetAttackKey { get; set; } = "Subtract";
+        public KeyAction Skinning { get; set; } = new KeyAction();
+        public string SkinningKey { get; set; } = "I";
+
+        public KeyAction Mount { get; set; } = new KeyAction();
+        public string MountKey { get; set; } = "Y";
+
+        public KeyAction Hearthstone { get; set; } = new KeyAction();
+        public string HearthstoneKey { get; set; } = "J";
+        public List<long> SkinningSpellIds { get; } = new List<long>() { 8613, 8617, 10768, 8618 };
 
 
-        public static Dictionary<ShapeshiftForm, ConsoleKey> ShapeshiftFormKeys { get; private set; } = new Dictionary<ShapeshiftForm, ConsoleKey>();
+        public static Dictionary<ShapeshiftForm, ConsoleKey> ShapeshiftFormKeys
+        { get; private set; } = new Dictionary<ShapeshiftForm, ConsoleKey>();
 
         public void Initialise(DataConfig dataConfig, PlayerReader playerReader, RequirementFactory requirementFactory, ILogger logger, string? overridePathProfileFile)
         {
@@ -128,6 +138,9 @@ namespace Libs
 
             PetAttack.Key = PetAttackKey;
             PetAttack.Initialise(playerReader, requirementFactory, logger);
+
+            Skinning.Key = SkinningKey;
+            Skinning.Initialise(playerReader, requirementFactory, logger);
 
             GatherFindKeys.ForEach(key =>
             {

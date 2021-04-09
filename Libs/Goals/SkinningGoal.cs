@@ -19,11 +19,11 @@ namespace Libs.Goals
         private readonly BagReader bagReader;
         private readonly ClassConfiguration classConfiguration;
         private readonly NpcNameFinder npcNameFinder;
-        
+
 
         private bool outOfCombat = false;
 
-        public SkinningGoal(ILogger logger, WowInput wowInput, PlayerReader playerReader, BagReader bagReader, StopMoving stopMoving,  ClassConfiguration classConfiguration, NpcNameFinder npcNameFinder)
+        public SkinningGoal(ILogger logger, WowInput wowInput, PlayerReader playerReader, BagReader bagReader, StopMoving stopMoving, ClassConfiguration classConfiguration, NpcNameFinder npcNameFinder)
         {
             this.logger = logger;
             this.wowInput = wowInput;
@@ -31,7 +31,7 @@ namespace Libs.Goals
             this.playerReader = playerReader;
             this.stopMoving = stopMoving;
             this.bagReader = bagReader;
-            
+
             this.classConfiguration = classConfiguration;
             this.npcNameFinder = npcNameFinder;
 
@@ -45,8 +45,8 @@ namespace Libs.Goals
 
         public override bool CheckIfActionCanRun()
         {
-            return !bagReader.BagsFull && 
-                playerReader.ShouldConsumeCorpse && 
+            return !bagReader.BagsFull &&
+                playerReader.ShouldConsumeCorpse &&
                 (
                 bagReader.HasItem(7005) ||
                 bagReader.HasItem(12709) ||
@@ -56,43 +56,37 @@ namespace Libs.Goals
 
         public override async Task PerformAction()
         {
-            Log("Try to find Corpse");
-            npcNameFinder.ChangeNpcType(NpcNameFinder.NPCType.Corpse);
+            WowPoint lastPosition = playerReader.PlayerLocation;
+            this.playerReader.LastUIErrorMessage = UI_ERROR.NONE;
 
+            Log("Stopped movement for Skinning Goals");
             await stopMoving.Stop();
+            await Wait(500);
 
-            // TODO: have to wait for the cursor to switch from loot -> skinning
-            // sometimes takes a lot of time
-            await npcNameFinder.WaitForNUpdate(1);
-            if (!await Wait(500, DiDEnteredCombat()))
+
+            if (!this.playerReader.HasTarget)
             {
-                await AquireTarget();
-                return;
+                Log("Attempting to Target Last Target");
+                await wowInput.TapLastTargetKey("Targeting last Target - Skinning Goal");
             }
 
-            Log("Should found corpses Count:" + npcNameFinder.NpcCount);
-            WowPoint lastPosition = playerReader.PlayerLocation;
-            bool skinSuccess = await npcNameFinder.FindByCursorType(Cursor.CursorClassification.Skin);
-            if (skinSuccess)
+            if (this.playerReader.HasTarget)
             {
-                await Wait(100);
-                if (IsPlayerMoving(lastPosition)) 
-                    Log("Goto corpse - Wait till the player become stil!");
-
+                await wowInput.TapInteractKey("Interacting(Skinning) the last Target - Skinning Goal");
+                Log("Interacting(Skinning) with Last Target");
                 while (IsPlayerMoving(lastPosition))
                 {
+                    Log("Moving - Skinning required movement to corpse");
                     lastPosition = playerReader.PlayerLocation;
-                    if (!await Wait(100, DiDEnteredCombat()))
+                    if (!await Wait(500, DidEnterCombat()))
                     {
                         await AquireTarget();
                         return;
                     }
                 }
-                
-                await wowInput.TapInteractKey("Skinning Attempt...");
                 do
                 {
-                    if (!await Wait(100, DiDEnteredCombat()))
+                    if (!await Wait(100, DidEnterCombat()))
                     {
                         await AquireTarget();
                         return;
@@ -100,25 +94,36 @@ namespace Libs.Goals
                 } while (playerReader.IsCasting);
 
                 // Wait for to update the LastUIErrorMessage
+                this.playerReader.UpdateLuaError();
                 await Wait(100);
-
                 var lastError = this.playerReader.LastUIErrorMessage;
-                if (lastError != UI_ERROR.ERR_SPELL_FAILED_S)
+                switch (lastError)
                 {
-                    this.playerReader.LastUIErrorMessage = UI_ERROR.NONE;
-                    logger.LogDebug("Skinning Successful!");
-                    await GoalExit();
-                }
-                else
-                {
-                    logger.LogDebug("Skinning Failed! Retry...");
+                    case UI_ERROR.NONE:
+                        logger.LogDebug("Skinning Interaction resulted in no errors");
+                        break;
+                    case UI_ERROR.ERR_CREATURE_NOT_SKINNABLE:
+                        Log("Last Target was not skinnable");
+                        break;
+                    case UI_ERROR.ERR_SKILL_NOT_HIGH_ENOUGH:
+                    case UI_ERROR.ERR_USE_LOCKED_WITH_SPELL_KNOWN_SI:
+                        Log("Skinning skill not high enough to skin");
+                        break;
+                    case UI_ERROR.ERR_CREATURE_NEEDS_LOOTED:
+                        Log("Last Target needs to be looted before Skinning");
+                        break;
+                    case UI_ERROR.ERR_SPELL_FAILED_S:
+                        Log("Skinning cast failed, reattempting Skinning");
+                        await this.PerformAction();
+                        break;
+                    //Target is tapped? dont think this should matter as it can be skinned anyways as long as looted
+                    default:
+                        Log($"Unknown edge case: {lastError}");
+                        break;
                 }
             }
-            else
-            {
-                logger.LogDebug($"Target is not skinnable - NPC Count: {npcNameFinder.NpcCount}");
-                await GoalExit();
-            }
+
+            await GoalExit();
         }
 
         public override void OnActionEvent(object sender, ActionEventArgs e)
@@ -138,18 +143,18 @@ namespace Libs.Goals
             await wowInput.TapClearTarget();
         }
 
-        public async Task<bool> DiDEnteredCombat()
+        public async Task<bool> DidEnterCombat()
         {
             await Task.Delay(0);
             if (!outOfCombat && !playerReader.PlayerBitValues.PlayerInCombat)
             {
-                Log("Combat Leave");
+                Log("Leaving Combat");
                 outOfCombat = true;
             }
 
             if (outOfCombat && playerReader.PlayerBitValues.PlayerInCombat)
             {
-                Log("Combat detected");
+                Log("Entering Combat");
                 return true;
             }
 

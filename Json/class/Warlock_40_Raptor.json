@@ -27,8 +27,8 @@
       {
         "Name": "Healthstone",
         "Key": "F6",
-        "Requirement": "Health%<45",
-        "Cooldown": 60,
+        "Requirement": "Health%<50",
+        "Cooldown": 120,
         "Log": false
       },
       {
@@ -39,21 +39,13 @@
         "Requirements": [ "TargetHealth%<30", "not BagItem:6265:5" ],
         "MinMana": 55
       },
-      {
-        "Name": "Drain Life",
-        "Key": "8",
-        "HasCastBar": true,
-        "StopBeforeCast": true,
-        "Requirements": [ "Health%<60", "TargetHealth%>20" ],
-        "MinMana": 185
-      },
-      {
-        "Name": "Amplify Curse",
-        "Key": "0",
-        "Cooldown": 180,
-        "MinMana": 0,
-        "Log": false
-      },
+      //{
+      //  "Name": "Amplify Curse",
+      //  "Key": "0",
+      //  "Cooldown": 180,
+      //  "MinMana": 0,
+      //  "Log": false
+      //},
       {
         "Name": "Curse of Agony",
         "Key": "4",
@@ -63,27 +55,50 @@
         "Log": false
       },
       {
-        "Name": "Siphon Life",
-        "Key": "5",
-        "Requirements": [ "TargetHealth%>45", "not Siphon Life" ],
-        "ResetOnNewTarget": true,
-        "MinMana": 150,
-        "Log": false
-      },
-      {
         "Name": "Corruption",
         "Key": "3",
-        "Requirements": [ "TargetHealth%>45", "not Corruption" ],
+        "Requirements": [ "TargetHealth%>50", "not Corruption" ],
         "ResetOnNewTarget": true,
         "MinMana": 160,
         "Log": false
       },
+      {
+        "Name": "Drain Life",
+        "Key": "8",
+        "HasCastBar": true,
+        "StopBeforeCast": true,
+        "Requirements": [ "Health%<60", "TargetHealth%>20" ],
+        "MinMana": 185
+      },
+      //{
+      //  "Name": "Siphon Life",
+      //  "Key": "5",
+      //  "Requirements": [ "TargetHealth%>45", "not Siphon Life" ],
+      //  "ResetOnNewTarget": true,
+      //  "MinMana": 150,
+      //  "Log": false
+      //},
       {
         "Name": "Shadow Bolt",
         "Key": "1",
         "MinMana": 210,
         "Requirements": [ "Shadow Trance" ],
         "Log": false
+      },
+      {
+        "Name": "Life Tap",
+        "Key": "9",
+        "Requirements": [ "Health%>80", "Mana%<60" ],
+        "Cooldown": 0,
+        "Log": false
+      },
+      {
+        "Name": "Drain Life",
+        "Key": "8",
+        "HasCastBar": true,
+        "StopBeforeCast": true,
+        "Requirements": [ "Health%<90", "TargetHealth%>20" ],
+        "MinMana": 185
       },
       {
         "Name": "shoot",

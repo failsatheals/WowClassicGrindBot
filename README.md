@@ -147,7 +147,12 @@ From the main menu (ESC) set the following under Interface Options:
 ## 7. Configure the Wow Client - Key Bindings:
 
 The "Interact with Target" keybind is super important as it allows the bot to turn towards and approach the target.
-The "Target Last Target " keybind helps with looting.
+The "Target Last Target " keybind helps with looting and skinning.
+
+Keybinds 
+0-9, - and = are the main Action Bar
+F1 - F12 are BottomLeft Action Bar
+Misc skills and targeting are BottomRight Action Bar
 
 From the main menu (ESC) set the following:
 
@@ -162,11 +167,20 @@ From the main menu (ESC) set the following:
 | Command | Key | ClassConfiguration KeyAction | Desciption |
 | ---- | ---- | ---- | ---- |
 | Target Nearest Enemy | Tab | TargetNearestTargetKey | ---- |
-| Target Pet | Multiply | TargetPetKey | Only pet based class |
+| Target Pet | Multiply | TargetPetKey | Only pet based class - Number Pad |
 | Target Last Target | G | TargetLastTargetKey | ---- |
 | Interact With Target | I | InteractKey | ---- |
 | Assist Target | F | TargetTargetOfTargetKey | ---- |
-| Pet attack | Subtract | PetAttackKey | Only pet based class |
+| Pet attack | Subtract | PetAttackKey | Only pet based class - Number Pad |
+| Stop Attack | Delete | Custom Macro | See section 8 |
+| Clear Target | Insert | Custom Macro | See section 8 |
+
+Misc Key Bindings:
+| Command | Key | ClassConfiguration KeyAction | Desciption |
+| ---- | ---- | ---- | ---- |
+| Skinning | I | SkinningKey | Skinning spell |
+| Mount | Y | MountKey | Mount item/spell |
+| Hearthstone | J | HearthstoneKey | Hearthstone item |
 
 ## 8. Configure the Wow Client - Bindpad addon
 
@@ -259,6 +273,26 @@ This is the sequence of commands that are used when pulling a mob.
 ### Combat Goal
 
 The sequence of commands that are used when in combat and trying to kill a mob. The combat goal does the first available command on the list. The goal then runs again re-evaluating the list before choosing the first available command again, and so on until the mob is dead.
+
+### Loot Goal
+
+The looting logic heavily relys on the ability to target your last target using the built in WoW keybinding.
+If you are able to access your last target, the Interact with Target keybind will be used to move your character to that last target.
+Current implementation will not recognize multiple dead targets in a single combat session, it will only interact and loot with the most recent Last Target.
+If skinning is configured, Skinning will be repeatly casted on the mob until looted, this attempts to preserve the target after looting which normally clears your Last Target
+If the Last Target is preserved, Skinning will be casted post looting to check for casting and Lua errors.
+In Loot Goal we only want to determine if it Skinnable or not, futher Skinning errors are determined in Skinning Goal.
+
+I am hoping with the release of TBC we will be given access to Focus target to give us a target that is not cleared after Death/Looting.
+For multitarget, a method to interpret the mouse icon around the player and Interact with Mouseover can be used when Last Target fails.
+
+### Skinning Goal
+Skinning is set up to be used the I key, but can also be done by the Interact Keybind after loot has been removed from the mob.
+Skinnable is determined inside the Loot Goal and the assumption here is the Last Target is Skinnable.
+After accessing Last Target, Interact Keybind will be used to make sure the Character is within range.
+Messages from Lua Errors of type SPELL_FAILED_S are used to determine if the Skinning cast was successfull.
+
+For multitarget, a method to interpret the mouse icon around the player and Interact with Mouseover can be used when Last Target fails.
 
 ### Adhoc Goals
 

@@ -38,7 +38,7 @@ namespace Libs.Goals
             }
         }
 
-        public ApproachTargetGoal(ILogger logger, WowProcess wowProcess, WowInput wowInput, PlayerReader playerReader, StopMoving stopMoving,  StuckDetector stuckDetector)
+        public ApproachTargetGoal(ILogger logger, WowProcess wowProcess, WowInput wowInput, PlayerReader playerReader, StopMoving stopMoving, StuckDetector stuckDetector)
         {
             this.logger = logger;
             this.wowProcess = wowProcess;
@@ -46,7 +46,7 @@ namespace Libs.Goals
 
             this.playerReader = playerReader;
             this.stopMoving = stopMoving;
-            
+
             this.stuckDetector = stuckDetector;
 
             AddPrecondition(GoapKey.hastarget, true);
@@ -81,12 +81,12 @@ namespace Libs.Goals
                 {
                     logger.LogInformation("WARN Bodypull -- Looks like we have an add on approach");
                     logger.LogInformation($"Combat={this.playerReader.PlayerBitValues.PlayerInCombat}, Is Target targetting me={this.playerReader.PlayerBitValues.TargetOfTargetIsPlayer}");
-                    
+
                     await this.stopMoving.Stop();
                     await wowInput.TapClearTarget();
                     await wowInput.TapStopKey();
 
-                    if(playerReader.PetHasTarget)
+                    if (playerReader.PetHasTarget)
                     {
                         await this.wowInput.TapTargetPet();
                         await this.wowInput.TapTargetOfTarget();
@@ -120,7 +120,7 @@ namespace Libs.Goals
                 await Task.Delay(250);
             }
 
-            if(playerReader.WithInCombatRange && (
+            if (playerReader.WithInCombatRange && (
                 playerReader.PlayerClass == PlayerClassEnum.Rogue ||
                 playerReader.PlayerClass == PlayerClassEnum.Warrior ||
                 playerReader.PlayerClass == PlayerClassEnum.Paladin))

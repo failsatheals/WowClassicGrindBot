@@ -122,7 +122,33 @@ local errorList = {
     "ERR_SPELL_OUT_OF_RANGE", --3
     "ERR_BADATTACKPOS", --4
     "ERR_AUTOFOLLOW_TOO_FAR", --5
+    "ERR_CREATURE_NOT_SKINNABLE", --6 Custom error 
+    "ERR_CREATURE_NEEDS_LOOTED", --7 Custom Error
+    "ERR_SKILL_NOT_HIGH_ENOUGH", --8 Custom Error
+    "ERR_USE_LOCKED_WITH_SPELL_KNOWN_SI" --9
 };
+
+local spellFailedMessageList = {
+    "Creature is not skinnable", --1 matches 6 in error list
+    "Creature must be looted first", --2 matches 7
+    "Skill not high enough" --3 matches 8
+}
+
+local spellFailedMessageToError = {
+    6,
+    7,
+    8
+}
+
+-- handle custom spell failure errors
+local function SpellFailedMessage(message)
+    for i = 1, table.getn(spellFailedMessageList), 1 do
+        if spellFailedMessageList[i]==message then
+            return spellFailedMessageToError[i];
+        end
+    end
+    return 2;
+end
 
 -- handle error events
 local function OnUIErrorMessage(self, event, messageType, message)
@@ -130,7 +156,7 @@ local function OnUIErrorMessage(self, event, messageType, message)
 
     local foundMessage=false;
     for i = 1, table.getn(ignoreErrorList), 1 do
-        if ignoreErrorList[i]==errorName then
+       if ignoreErrorList[i]==errorName then
             foundMessage=true;
             UIErrorsFrame:AddMessage(message, 0.7, 0.7, 0.7) -- show as grey messasge
         end
@@ -141,6 +167,9 @@ local function OnUIErrorMessage(self, event, messageType, message)
             if errorList[i]==errorName then
                 uiErrorMessage = i;
                 foundMessage=true;
+                if i==2 then
+                     uiErrorMessage = SpellFailedMessage(message)
+                end
                 UIErrorsFrame:AddMessage(message, 0, 1, 0) -- show as green messasge
             end
         end
@@ -465,7 +494,12 @@ function DataToColor:CreateFrames(n)
             MakePixelSquareArr(integerToColor(self:getUnitXP("player")), 50) -- Player Xp
             MakePixelSquareArr(integerToColor(self:getUnitXPMax("player")), 51) -- Player Level Xp
             MakePixelSquareArr(integerToColor(uiErrorMessage), 52) -- Last UI Error message
-            uiErrorMessage=0;
+            MakePixelSquareArr(integerToColor(uiErrorMessage), 75) -- Last UI Error message
+            MakePixelSquareArr(integerToColor(uiErrorMessage), 76) -- Last UI Error message
+            MakePixelSquareArr(integerToColor(uiErrorMessage), 77) -- Last UI Error message
+            MakePixelSquareArr(integerToColor(uiErrorMessage), 78) -- Last UI Error message
+            MakePixelSquareArr(integerToColor(uiErrorMessage), 79) -- Last UI Error message
+            --uiErrorMessage=0;
 
             MakePixelSquareArr(integerToColor(DataToColor:CastingInfoSpellId()), 53) -- Spell being cast
             MakePixelSquareArr(integerToColor(DataToColor:ComboPoints()), 54) -- Combo points for rogue / druid
